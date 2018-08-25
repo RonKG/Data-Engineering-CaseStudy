@@ -1,4 +1,4 @@
-# Data-Engineering-Sandbox
+# Data-Engineering-CaseStudy-Sandbox
 
 ### Minimum Requirements
 - JavaSE 1.8
