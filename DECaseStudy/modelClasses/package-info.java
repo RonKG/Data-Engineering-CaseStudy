@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author ronald
+ * @author Ronald Wahome
  *
  */
 package modelClasses;

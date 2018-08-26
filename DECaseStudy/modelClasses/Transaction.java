@@ -13,11 +13,11 @@ public class Transaction {
 	private Float transactionValue;	
 
 
-	private Transaction() {
+	public Transaction() {
 		super();
 	}
 	
-	private Transaction(Integer transactionId, Integer day, Integer month, Integer year, String ccNumber, Integer ssn,
+	public Transaction(Integer transactionId, Integer day, Integer month, Integer year, String ccNumber, Integer ssn,
 			Integer branchCode, String transactiontype, Float transactionValue) {
 		super();
 		this.transactionId = transactionId;

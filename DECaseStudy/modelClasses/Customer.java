@@ -2,28 +2,28 @@ package modelClasses;
 
 public class Customer{
 
-	String firstName;
-	String middleName;
-	String lastName;
-	Integer  ssn;
-	String ccNumber;
-	String aptNumber;
-	String streetName;
-	String city;
-	String state;
-	String country;
-	String zipcode;
-	Integer phoneNumber;
-	String email;
-	String lastUpdated;
+	private String firstName;
+	private String middleName;
+	private String lastName;
+	private Integer ssn;
+	private String ccNumber;
+	private String aptNumber;
+	private String streetName;
+	private String city;
+	private String state;
+	private String country;
+	private String zipcode;
+	private Integer phoneNumber;
+	private String email;
+	private String lastUpdated;
 	
 	
-	private Customer() {
+	public Customer() {
 		super();
 	}
 	
 	
-	private Customer(String firstName, String middleName, String lastName, Integer ssn, String ccNumber, String aptNumber,
+	public Customer(String firstName, String middleName, String lastName, Integer ssn, String ccNumber, String aptNumber,
 			String streetName, String city, String state, String country, String zipcode, Integer phoneNumber, String email,
 			String lastUpdated) {
 		super();
@@ -132,9 +132,10 @@ public class Customer{
 
 	@Override
 	public String toString() {
-		return "Customer [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", ssn="
-				+ ssn + ", ccNumber=" + ccNumber + ", aptNumber=" + aptNumber + ", streetName=" + streetName + ", city="
-				+ city + ", state=" + state + ", country=" + country + ", zipcode=" + zipcode + ", phoneNumber="
-				+ phoneNumber + ", email=" + email + ", lastUpdated=" + lastUpdated + "]";
+		return "Customer [\n"
+				+ "firstName=" + firstName + "\nmiddleName=" + middleName + "\nlastName=" + lastName + "\nssn="
+				+ ssn + "\nccNumber=" + ccNumber + "\naptNumber=" + aptNumber + "\nstreetName=" + streetName + "\ncity="
+				+ city + "\nstate=" + state + "\ncountry=" + country + "\nzipcode=" + zipcode + "\nphoneNumber="
+				+ phoneNumber + "\nemail=" + email + "\nlastUpdated=" + lastUpdated + "]";
 	}
 }

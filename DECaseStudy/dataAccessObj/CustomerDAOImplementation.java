@@ -1,5 +1,6 @@
 package dataAccessObj;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,13 +10,20 @@ import java.util.List;
 import interfaces.CustomerDAOInterface;
 import modelClasses.Customer;
 
-public class CustomerDAOImplementation implements CustomerDAOInterface{
+public class CustomerDAOImplementation implements CustomerDAOInterface {
 
 	Connection connection = null;
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/classicmodels?autoReconnect=true&useSSL=false";
+	static final String DB_URL = "jdbc:mysql://localhost/cdw_sapp?autoReconnect=true&useSSL=false";
 	static final String USER = "root";
 	static final String PASS = "root";
+
+	private static final String DELETE = "DELETE FROM cdw_sapp_customer WHERE id=?";
+	private static final String FIND_ALL = "SELECT * FROM cdw_sapp_customer ORDER BY id";
+	private static final String FIND_BY_SSN = "SELECT * FROM cdw_sapp_customer WHERE SSN=?";
+	private static final String FIND_BY_NAME = "SELECT * FROM cdw_sapp_customer WHERE name=?";
+	private static final String INSERT = "INSERT INTO cdw_sapp_customer(name, tel, passwd) VALUES(?, ?, ?)";
+	private static final String UPDATE = "UPDATE cdw_sapp_customer SET FIRST_NAME=?, LAST_NAME=?, APT_NO=? WHERE SSN=?";
 
 	public Connection getConnection() {
 		try {
@@ -34,51 +42,97 @@ public class CustomerDAOImplementation implements CustomerDAOInterface{
 		}
 		return connection;
 	}
-	
-	
-	
-	public Customer getCustomer() {		
-		/*
-		 To check the existing account details of a customer.
-		 */
-		
-		return null;
-	}
-	
-		
-	public void updateCustomer(Customer customer) {
-			/*
-			 To modify the existing account details of a customer
-			 */
-		
-		
-		}
-		
-		
-	public List<Customer> getMonthlyBill(){
-		/*
-		 To generate monthly bill for a credit card number 
-		 for a given month and year.
-		 */
-		List <Customer> monthlyBill = new LinkedList<Customer>();
 
-		
-		
-		return monthlyBill;
-		
-	}
-	
-	public List<Customer> viewSelectDates(){
-		
+	public Customer getCustomer(int ssn) {
 		/*
-		 To display the transactions made by a customer between two dates. 
-		 Order by year, month, and day in descending order.
+		 * To check the existing account details of a customer.
 		 */
-		
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(FIND_BY_SSN);
+			stmt.setInt(1, ssn);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Customer customer = new Customer();
+				customer.setSsn(rs.getInt("SSN"));
+				customer.setFirstName(rs.getString("FIRST_NAME"));
+				customer.setLastName(rs.getString("LAST_NAME"));
+				customer.setCcNumber(rs.getString("CREDIT_CARD_NO"));
+				customer.setAptNumber(rs.getString("APT_NO"));
+				customer.setStreetName(rs.getString("STREET_NAME"));
+				customer.setCity(rs.getString("CUST_CITY"));
+				customer.setState(rs.getString("CUST_STATE"));
+				customer.setCountry(rs.getString("CUST_COUNTRY"));
+				customer.setZipcode(rs.getString("CUST_ZIP"));
+				customer.setEmail(rs.getString("CUST_EMAIL"));
+				customer.setPhoneNumber(rs.getInt("CUST_PHONE"));
+				customer.setLastUpdated(rs.getString("LAST_UPDATED"));
+
+				return customer;
+
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int updateCustomer(Customer customer) {
+		/*
+		 * To modify the existing account details of a customer
+		 */
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(UPDATE);
+			
+			stmt.setString(1, customer.getFirstName());
+			stmt.setString(2, customer.getLastName());
+			stmt.setString(3, customer.getAptNumber());
+			stmt.setLong(4, customer.getSsn());
+
+			System.out.println("User with SSN # " + customer.getSsn() + 
+					" was updated in DB with following details where not \n (NULL means not updated): \n" + customer.toString() + "\n");
+
+			return stmt.executeUpdate();
+			 
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	public List<Customer> getMonthlyBill() {
+		/*
+		 * To generate monthly bill for a credit card number for a given month and year.
+		 */
+		List<Customer> monthlyBill = new LinkedList<Customer>();
+
+		return monthlyBill;
+
+	}
+
+	public List<Customer> viewSelectDates() {
+
+		/*
+		 * To display the transactions made by a customer between two dates. Order by
+		 * year, month, and day in descending order.
+		 */
+
 		return null;
 	}
-	
-	
+
 	public void closeConnection() {
 		try {
 			if (connection != null) {
