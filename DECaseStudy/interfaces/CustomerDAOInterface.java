@@ -1,8 +1,7 @@
 package interfaces;
 
 import java.util.List;
-
-import modelClasses.*;
+import modelClasses.Customer;
 
 public interface CustomerDAOInterface {
 
