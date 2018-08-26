@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author Ronald Wahome
+ * @author ronald
  *
  */
 package interfaces;

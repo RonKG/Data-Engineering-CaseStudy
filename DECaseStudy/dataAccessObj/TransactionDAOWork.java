@@ -3,8 +3,13 @@ package dataAccessObj;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
-public class TransactionDAOWork {
+import interfaces.*;
+import modelClasses.*;
+
+public class TransactionDAOWork implements TransactionDAOInterface{
 
 
 	Connection connection = null;
@@ -31,32 +36,45 @@ public class TransactionDAOWork {
 		return connection;
 	}
 	
-	public void transactionsByZipandDate()
+	public List<Transaction> byZipandDate()
 	{
 		/*
 		 To display the transactions made by customers living in a given zipcode
 		  for a given month and year. Order by day in descending order.
 		 */
 		
+		List<Transaction> transactions = new LinkedList<Transaction>();
 		
+		
+		
+		
+		return transactions;
 	}
 	
-	public void totalTransactionsByType()
+	public List<Transaction> groupByType()
 	{
 		/*
 		 To display the number and total values of transactions for a given type.
 		 */
 		
+		List<Transaction> transactions = new LinkedList<Transaction>();
 		
+		
+		
+		return transactions;
 	}
 	
-	public void countAndTotalTransactionByBranch()
+	public List<Transaction> totalsByBranch()
 	{
 		/*
 		  To display the number and total values of transactions for branches in a given state
 		 */
 		
+		List<Transaction> transactions = new LinkedList<Transaction>();
 		
+		
+		
+		return transactions;
 	}
 	
 

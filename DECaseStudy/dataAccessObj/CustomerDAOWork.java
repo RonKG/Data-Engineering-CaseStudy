@@ -3,8 +3,13 @@ package dataAccessObj;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
-public class CustomerDAOWork {
+import interfaces.CustomerDAOInterface;
+import modelClasses.Customer;
+
+public class CustomerDAOWork implements CustomerDAOInterface{
 
 	Connection connection = null;
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -32,16 +37,16 @@ public class CustomerDAOWork {
 	
 	
 	
-	public void listCustomerDetails() {
+	public Customer getCustomer() {		
 		/*
 		 To check the existing account details of a customer.
 		 */
 		
-		
+		return null;
 	}
 	
 		
-	public void customerDetails() {
+	public void updateCustomer() {
 			/*
 			 To modify the existing account details of a customer
 			 */
@@ -50,22 +55,27 @@ public class CustomerDAOWork {
 		}
 		
 		
-	public void generateMonthlyBill(){
+	public List<Customer> getMonthlyBill(){
 		/*
 		 To generate monthly bill for a credit card number 
 		 for a given month and year.
 		 */
+		List <Customer> monthlyBill = new LinkedList<Customer>();
+
 		
+		
+		return monthlyBill;
 		
 	}
 	
-	public void showTransactionsBetweenDates(){
+	public List<Customer> viewSelectDates(){
+		
 		/*
 		 To display the transactions made by a customer between two dates. 
 		 Order by year, month, and day in descending order.
 		 */
 		
-		
+		return null;
 	}
 	
 	
@@ -77,6 +87,14 @@ public class CustomerDAOWork {
 		} catch (Exception e) {
 			// do nothing
 		}
+	}
+
+
+
+	@Override
+	public void updateCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
