@@ -1,9 +1,9 @@
 # Data-Engineering-CaseStudy
 
 
+#### Note: This project is still in development..........
 
-
-### Minimum Requirements
+### Minimum Requirements so far
 - JavaSE 1.8
 - MySQL
 - MySQL Java Connector 5.1.47
@@ -14,4 +14,4 @@
 
 
 
-- Note: This project is still in development..........
+
