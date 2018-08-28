@@ -28,11 +28,9 @@ public class Transaction {
 		this.ssn = ssn;
 		this.branchCode = branchCode;
 		this.transactiontype = transactiontype;
-		this.transactionValue = transactionValue;
-		
-		
-		
+		this.transactionValue = transactionValue;		
 	}
+	
 	public Integer getTransactionId() {
 		return transactionId;
 	}
@@ -87,13 +85,32 @@ public class Transaction {
 	public void setTransactionValue(Float transactionValue) {
 		this.transactionValue = transactionValue;
 	}
+	
+	public String printMonthBill() {
+		return " [transactionId=" + transactionId + 
+				", day=" + day + 
+				", month=" + month + 
+				", year=" + year + 
+				", ccNumber=" + ccNumber + 
+				", transactiontype=" + transactiontype + 
+				", transactionValue=" + transactionValue + "]";
+	}
 
 	@Override
 	public String toString() {
 		return "Transaction [transactionId=" + transactionId + ", day=" + day + ", month=" + month + ", year=" + year
 				+ ", ccNumber=" + ccNumber + ", ssn=" + ssn + ", branchCode=" + branchCode + ", transactiontype="
-				+ transactiontype + ", transactionValue=" + transactionValue + "]";
+				+ transactiontype + ", transactionValue=" + transactionValue + "]\n";
 	}
 	
+	public void printBillRange() {
+		System.out.printf("%-20s%-20s%-20s%-20s%-20s\n",transactionId,day,month,year,ccNumber,transactiontype,transactionValue);
+
+	}
 	
+	public void printBillHeader() {
+		System.out.printf("\n%-20s%-20s%-20s%-20s%-20s\n","transactionId","day","month"
+				,"year","ccNumber","transactiontype","transactionValue");
+		
+	}
 }

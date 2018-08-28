@@ -1,33 +1,33 @@
 package dataAccessObj;
 
-import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
 import interfaces.CustomerDAOInterface;
 import modelClasses.Customer;
 
 public class CustomerDAOImplementation implements CustomerDAOInterface {
 
+	static final String JDBC_DRIVER = 
+			"com.mysql.jdbc.Driver";
+	private static final String DB_URL = 
+			"jdbc:mysql://localhost/cdw_sapp?autoReconnect=true&useSSL=false";
+	private static final String USER = 
+			"root";
+	private static final String PASS = 
+			"root";
+	private static final String FIND_BY_SSN = 
+			"SELECT * FROM cdw_sapp_customer WHERE SSN=?";
+	private static final String UPDATE = 
+			"UPDATE cdw_sapp_customer SET FIRST_NAME=?, LAST_NAME=?, APT_NO=? WHERE SSN=?";
 	Connection connection = null;
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/cdw_sapp?autoReconnect=true&useSSL=false";
-	static final String USER = "root";
-	static final String PASS = "root";
 
-	private static final String DELETE = "DELETE FROM cdw_sapp_customer WHERE id=?";
-	private static final String FIND_ALL = "SELECT * FROM cdw_sapp_customer ORDER BY id";
-	private static final String FIND_BY_SSN = "SELECT * FROM cdw_sapp_customer WHERE SSN=?";
-	private static final String FIND_BY_NAME = "SELECT * FROM cdw_sapp_customer WHERE name=?";
-	private static final String INSERT = "INSERT INTO cdw_sapp_customer(name, tel, passwd) VALUES(?, ?, ?)";
-	private static final String UPDATE = "UPDATE cdw_sapp_customer SET FIRST_NAME=?, LAST_NAME=?, APT_NO=? WHERE SSN=?";
 
 	public Connection getConnection() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(JDBC_DRIVER);
 			if (connection == null)
 				connection = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -96,41 +96,22 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 		try {
 			conn = getConnection();
 			stmt = conn.prepareStatement(UPDATE);
-			
+
 			stmt.setString(1, customer.getFirstName());
 			stmt.setString(2, customer.getLastName());
 			stmt.setString(3, customer.getAptNumber());
 			stmt.setLong(4, customer.getSsn());
 
-			System.out.println("User with SSN # " + customer.getSsn() + 
-					" was updated in DB with following details where not \n (NULL means not updated): \n" + customer.toString() + "\n");
+			System.out.println("User with SSN # " + customer.getSsn()
+					+ " was updated in DB \nwith following details where not \n (NULL means not updated): \n"
+					+ customer.toString() + "\n");
 
 			return stmt.executeUpdate();
-			 
+
 		} catch (SQLException e) {
 			// e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-	}
-
-	public List<Customer> getMonthlyBill() {
-		/*
-		 * To generate monthly bill for a credit card number for a given month and year.
-		 */
-		List<Customer> monthlyBill = new LinkedList<Customer>();
-
-		return monthlyBill;
-
-	}
-
-	public List<Customer> viewSelectDates() {
-
-		/*
-		 * To display the transactions made by a customer between two dates. Order by
-		 * year, month, and day in descending order.
-		 */
-
-		return null;
 	}
 
 	public void closeConnection() {
@@ -142,5 +123,4 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 			// do nothing
 		}
 	}
-
 }
