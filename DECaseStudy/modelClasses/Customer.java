@@ -13,7 +13,7 @@ public class Customer{
 	private String state;
 	private String country;
 	private String zipcode;
-	private Integer phoneNumber;
+	private int phoneNumber;
 	private String email;
 	private String lastUpdated;
 	
@@ -24,7 +24,7 @@ public class Customer{
 	
 	
 	public Customer(String firstName, String middleName, String lastName, Integer ssn, String ccNumber, String aptNumber,
-			String streetName, String city, String state, String country, String zipcode, Integer phoneNumber, String email,
+			String streetName, String city, String state, String country, String zipcode, int phoneNumber, String email,
 			String lastUpdated) {
 		super();
 		this.firstName = firstName;

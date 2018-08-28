@@ -3,45 +3,36 @@
  */
 package interfaces;
 
-import java.util.List;
-
-import dataAccessObj.CustomerDAOImplementation;
-import dataAccessObj.TransactionDAOImplementation;
-import dataAccessObj.TransactionDAOImplementation.Temp;
-import modelClasses.Customer;
-import modelClasses.Transaction;
-
 public class MainClass {
 
 	public static void main(String[] args) {
 
-		// get customer example
-		CustomerDAOImplementation getCust = new CustomerDAOImplementation();
-		getCust.getConnection();
-		getCust.getCustomer(123456100);
-		System.out.println(getCust.getCustomer(123456100) + "\n");
-		getCust.closeConnection();
+//		// get customer example
+//		Runner rn1 = new Runner();
+//		rn1.findCustomer();
 
 		// update customer example
-		CustomerDAOImplementation updateCust = new CustomerDAOImplementation();
-		Customer cust1 = new Customer();
-		cust1.setFirstName("Jane");
-		cust1.setLastName("Doe");
-		cust1.setAptNumber("Blue#");
-		cust1.setSsn(123453023);
-		updateCust.getConnection();
-		updateCust.updateCustomer(cust1);
-		updateCust.closeConnection();
+//		CustomerDAOImplementation updateCust = new CustomerDAOImplementation();
+//		Customer cust1 = new Customer();
+//		
+//		cust1.setAptNumber("Blue#");
+//		cust1.setCity("Chicago");
+//		cust1.setSsn(123453023);
+//		updateCust.updateCustomer(cust1);
+		
+		Runner rn2 = new Runner();
+		rn2.updateCustomer();
 
+		
+		
+		
+		/*
 		// group by type
 		TransactionDAOImplementation groupCust = new TransactionDAOImplementation();
-		groupCust.getConnection();
 		groupCust.groupByType("Education");
-		groupCust.closeConnection();
 
 		// monthly bill
 		TransactionDAOImplementation monthBill = new TransactionDAOImplementation();
-		monthBill.getConnection();
 		List<Transaction> transactions = monthBill.getMonthlyBill(2, 3, 123456100);
 		transactions.get(1).printBillHeader();
 		for (int i = 0; i < transactions.size(); i++) {
@@ -50,21 +41,25 @@ public class MainClass {
 
 		// view select dates
 		TransactionDAOImplementation betweenDates = new TransactionDAOImplementation();
-		betweenDates.getConnection();
 		List<Transaction> btwnDates = betweenDates.viewSelectDates("1-1-2018", "1-1-2018");
 		btwnDates.get(1).printBillHeader();
 		for (int i = 0; i < btwnDates.size(); i++) {
-			//btwnDates.get(i).printBillRange();
+			// btwnDates.get(i).printBillRange();
 		}
-		
-		// view transactions in zipcode
-		TransactionDAOImplementation zipcodes = new TransactionDAOImplementation();
-		zipcodes.getConnection();
-		List<Temp> temp = zipcodes.byZipandDate(39120, 1, 2);
-		for (int i = 0; i < temp.size(); i++) {
-			System.out.println(temp.get(i));
-		}
-				
-	}
 
+		// view transactions in zipcode
+		TransactionDAOImplementation zips = new TransactionDAOImplementation();
+		List<modelClasses.Zipcodes> zipcodes = zips.byZipandDate(39120, 2, 2018);
+		Zipcodes zipcode = new Zipcodes();
+		zipcode.printZipHeader();
+		for (int i = 0; i < zipcodes.size(); i++) {
+			zipcodes.get(i).printZipRange();
+		}
+
+		// number and total values of transactions for branches in a given state
+		TransactionDAOImplementation branches = new TransactionDAOImplementation();
+		System.out.println(branches.totalsByBranch("TX").toString());
+
+		*/
+	}
 }

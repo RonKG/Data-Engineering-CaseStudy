@@ -9,7 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import interfaces.TransactionDAOInterface;
+import modelClasses.Branches;
 import modelClasses.Transaction;
+import modelClasses.Zipcodes;
 
 public class TransactionDAOImplementation implements TransactionDAOInterface{
 
@@ -30,8 +32,7 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 			"RIGHT JOIN cdw_sapp_creditcard cd\n" + 
 			"ON cs.CREDIT_CARD_NO = cd.CREDIT_CARD_NO\n" + 
 			"WHERE CUST_ZIP = ?\n" + 
-			"AND MONTH = ? AND YEAR = ?" +
-			"ORDER BY STR_TO_DATE( CONCAT( day, '-', month, '-', year ), '%d-%m-%Y');";
+			"AND MONTH = ? AND YEAR = ?";
 	private static final String MONTHLY_BILL = 
 			"SELECT TRANSACTION_ID, DAY, MONTH, YEAR, CREDIT_CARD_NO, TRANSACTION_VALUE\n" + 
 			"FROM cdw_sapp_creditcard\n" + 
@@ -46,7 +47,12 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 			"BETWEEN STR_TO_DATE( ?, '%d-%m-%Y' ) \n" + 
 			"AND STR_TO_DATE( ?, '%d-%m-%Y' )" + 
 			"ORDER BY STR_TO_DATE( CONCAT( day, '-', month, '-', year ), '%d-%m-%Y');";
-	
+	private static final String BRANCH_TRANSACTIONS =
+			"SELECT BRANCH_STATE, SUM(TRANSACTION_VALUE)\n" + 
+			"FROM cdw_sapp_creditcard cd\n" + 
+			"LEFT JOIN cdw_sapp_branch br\n" + 
+			"ON cd.BRANCH_CODE = br.BRANCH_CODE\n" + 
+			"WHERE BRANCH_STATE = ?;";
 	
 
 	public Connection getConnection() {
@@ -66,15 +72,15 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 		return connection;
 	}
 	
-	public List<Temp> byZipandDate(int zipCode, int month, int year)
+	public List<Zipcodes> byZipandDate(int zipCode, int month, int year)
 	{
 		/*
 		 To display the transactions made by customers living in a given zipcode
 		  for a given month and year. Order by day in descending order.
 		 */		
 		Connection conn = null;
-		Temp zipcode = null;
 		PreparedStatement stmt = null;
+		ResultSet rs = null; 
 		
 		try {
 			conn = getConnection();
@@ -82,17 +88,17 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
             stmt.setInt(1, zipCode);
             stmt.setInt(2, month);
             stmt.setInt(3, year);
-            ResultSet rs = stmt.executeQuery();
-            List<Temp> zipcodes = new LinkedList<Temp>();                     
-            while (rs.next()) {           	
-            	zipcode = new Temp();
+            rs = stmt.executeQuery();
+            List<Zipcodes> zipcodes = new LinkedList<Zipcodes>();  
+            while (rs.next()) {       
+            	Zipcodes zipcode = new Zipcodes();
             	zipcode.id = rs.getInt(1);
             	zipcode.fname = rs.getString("FIRST_NAME"); 
             	zipcode.lname = rs.getString("LAST_NAME"); 
             	zipcode.state = rs.getString("CUST_STATE"); 
             	zipcode.cc = rs.getString("CREDIT_CARD_NO"); 
             	zipcode.zip = rs.getString("CUST_ZIP"); 
-            	zipcode.date = rs.getString(7);            	
+            	zipcode.date = rs.getString(7); 
             	zipcodes.add(zipcode);
             }    
             System.out.println(".......Fetching transactions from Zipcode: "+zipCode);
@@ -132,17 +138,32 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
         }
  	}
 	
-	public List<Transaction> totalsByBranch()
+	public Branches totalsByBranch(String state)
 	{
 		/*
 		  To display the number and total values of transactions for branches in a given state
 		 */		
-		List<Transaction> transactions = new LinkedList<Transaction>();
-		
-		
-		
-		return transactions;
-	}
+		Connection conn = null;
+		PreparedStatement stmt = null;		
+		try {
+			conn = getConnection();
+            stmt = conn.prepareStatement(BRANCH_TRANSACTIONS);
+            Branches branch = null;            
+            stmt.setString(1, state);
+            ResultSet rs = stmt.executeQuery();                   
+            while (rs.next()) {            	
+            	branch = new Branches();
+            	branch.state = rs.getString(1);
+            	branch.value = rs.getFloat(2);
+            }
+            rs.close();
+            stmt.close();
+            return branch; 
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            throw new RuntimeException(e);
+        	} 
+		}
 	
 	public List<Transaction> getMonthlyBill(int month, int year, int ssn) {
 		/*
@@ -241,13 +262,5 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 		return String.format("%.2f", d);
 	}
 
-	public class Temp{
-		int id;
-		String fname;
-		String lname;
-		String state;
-		String cc;
-		String zip;
-		String date;
-	}
 }
+

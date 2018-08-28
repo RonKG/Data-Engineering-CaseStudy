@@ -20,9 +20,55 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 			"root";
 	private static final String FIND_BY_SSN = 
 			"SELECT * FROM cdw_sapp_customer WHERE SSN=?";
-	private static final String UPDATE = 
-			"UPDATE cdw_sapp_customer SET FIRST_NAME=?, LAST_NAME=?, APT_NO=? WHERE SSN=?";
+
+	private static final String UPDATE_CUSTOMER = 
+			"UPDATE cdw_sapp_customer"	
+			+ "SET APT_NO=?, "
+			+ "STREET_NAME=?, "
+			+ "CUST_CITY=?, "
+			+ "CUST_STATE=?, "
+			+ "CUST_COUNTRY=?, "
+			+ "CUST_ZIP=?, "
+			+ "CUST_PHONE=?, "
+			+ "CUST_EMAIL=? "	+ 
+			"WHERE SSN=?";
+	
 	Connection connection = null;
+	
+	public int updateCustomer(Customer customer) {
+		/*
+		 * To modify the existing account details of a customer
+		 */
+		PreparedStatement stmt = null;
+		Connection conn = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.prepareStatement(UPDATE_CUSTOMER);
+
+			stmt.setString(1, customer.getAptNumber());
+			stmt.setString(2, customer.getStreetName());
+			stmt.setString(3, customer.getCity());
+			stmt.setString(4, customer.getState());
+			stmt.setString(5, customer.getCountry());
+			stmt.setString(6, customer.getZipcode());
+			stmt.setInt(7, customer.getPhoneNumber());
+			System.out.println("Debug1: ");
+
+			stmt.setString(8, customer.getEmail());
+			stmt.setLong(9, customer.getSsn());
+
+			System.out.println("User with SSN # " + customer.getSsn()
+					+ " was updated in DB \nwith following details where not \n (NULL means not updated): \n"
+					+ customer.toString() + "\n");
+
+			return stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
 
 
 	public Connection getConnection() {
@@ -85,34 +131,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 		}
 	}
 
-	public int updateCustomer(Customer customer) {
-		/*
-		 * To modify the existing account details of a customer
-		 */
 
-		Connection conn = null;
-		PreparedStatement stmt = null;
-
-		try {
-			conn = getConnection();
-			stmt = conn.prepareStatement(UPDATE);
-
-			stmt.setString(1, customer.getFirstName());
-			stmt.setString(2, customer.getLastName());
-			stmt.setString(3, customer.getAptNumber());
-			stmt.setLong(4, customer.getSsn());
-
-			System.out.println("User with SSN # " + customer.getSsn()
-					+ " was updated in DB \nwith following details where not \n (NULL means not updated): \n"
-					+ customer.toString() + "\n");
-
-			return stmt.executeUpdate();
-
-		} catch (SQLException e) {
-			// e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
 
 	public void closeConnection() {
 		try {
