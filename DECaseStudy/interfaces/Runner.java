@@ -7,28 +7,29 @@ import modelClasses.Customer;
 
 public class Runner {
 
-	// get customer example
+	public static Scanner sc = new Scanner(System.in);
+
 	public void findCustomer() {
-		
-		Scanner sc = new Scanner(System.in);
+
+		// get customer example
 		System.out.println("Enter a SSN to Get Customer Record: ");
 		int userIn = sc.nextInt(); // CHECK FOR INTEGER -- EXCEPTION
+
 		CustomerDAOImplementation getCust = new CustomerDAOImplementation();
 		System.out.println(getCust.getCustomer(userIn) + "\n");
-		sc.close();		
+		sc.close();
+
 	}
-	
-	// update customer example
-	public void updateCustomer() {		
-		CustomerDAOImplementation updateCust = new CustomerDAOImplementation();
+
+	public void updateCustomer() {
+		CustomerDAOImplementation custDao = new CustomerDAOImplementation();
 		Customer customer = new Customer();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter a SSN to Update Customer Record: ");
+		System.out.println("Enter a SSN to update a Customer Record: ");
 		int ssn = sc.nextInt();
+		customer.setSsn(ssn);
 		
-		String input = null;
-		do {
-			System.out.println("Enter a Field # to Change or press Q to quit ");
+		while (true) {
+			System.out.println("Enter the correct # to update OR press 'Q' to quit ");
 			System.out.println("#1 - Apartment number");
 			System.out.println("#2 - Street name");
 			System.out.println("#3 - City");
@@ -37,55 +38,63 @@ public class Runner {
 			System.out.println("#6 - Zipcode");
 			System.out.println("#7 - Phone number");
 			System.out.println("#8 - Email");
-			
-			input = sc.nextLine().toString().toLowerCase();
-			
-			switch(input) {
+			System.out.println(" Q - to exit program");
+
+			String input = sc.next();
+			System.out.println("You entered: " + input);
+
+			switch (input) {
 			case "1":
 				System.out.println("enter new apartment #: ");
-				customer.setAptNumber(sc.nextLine());
+				String apt = sc.next();
+				customer.setAptNumber(apt);
 				break;
 			case "2":
 				System.out.println("enter new street name: ");
-				customer.setStreetName(sc.nextLine());
+				String street = sc.next();
+				customer.setStreetName(street);
 				break;
 			case "3":
 				System.out.println("enter new city: ");
-				customer.setCity(sc.nextLine());
+				String city = sc.next();
+				customer.setCity(city);
 				break;
 			case "4":
 				System.out.println("enter new State: ");
-				customer.setState(sc.nextLine());
+				String state = sc.next();
+				customer.setState(state);
 				break;
 			case "5":
 				System.out.println("enter new country: ");
-				customer.setCountry(sc.nextLine());
+				String country = sc.next();
+				customer.setCountry(country);
 				break;
 			case "6":
 				System.out.println("enter new zipcode: ");
-				customer.setZipcode(sc.nextLine());
+				String zip = sc.next();
+				customer.setZipcode(zip);
 				break;
 			case "7":
 				System.out.println("enter new phone number: ");
-				customer.setPhoneNumber(Integer.getInteger(sc.nextLine()));
+				int phone = Integer.parseInt(sc.next());
+				customer.setPhoneNumber(phone);
 				break;
 			case "8":
 				System.out.println("enter new email address: ");
-				customer.setEmail(sc.nextLine());
+				String email = sc.next();
+				customer.setEmail(email);
 				break;
+			case "q":
+			case "Q":
+				System.out.println("You choose to quit. Program exiting.....");
+				return;
 			default:
-					System.out.println("Invalid input");
-					break;
+				System.out.println("invalid input. Try again!!");
 			}
-			customer.setSsn(ssn);
-			
-			updateCust.updateCustomer(customer);
-		}		
-		while ( input != "q");
-		
-		
-		sc.close();		
-		
-		
+			custDao.updateCustomerD(customer);
+
+		}
+
 	}
+
 }

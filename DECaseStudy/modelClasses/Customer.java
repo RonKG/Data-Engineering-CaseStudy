@@ -5,7 +5,7 @@ public class Customer{
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private Integer ssn;
+	private int ssn;
 	private String ccNumber;
 	private String aptNumber;
 	private String streetName;
@@ -62,10 +62,10 @@ public class Customer{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Integer getSsn() {
+	public int getSsn() {
 		return ssn;
 	}
-	public void setSsn(Integer ssn) {
+	public void setSsn(int ssn) {
 		this.ssn = ssn;
 	}
 	public String getCcNumber() {
@@ -110,7 +110,7 @@ public class Customer{
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-	public Integer getPhoneNumber() {
+	public int getPhoneNumber() {
 		return phoneNumber;
 	}
 	public void setPhoneNumber(Integer phoneNumber) {

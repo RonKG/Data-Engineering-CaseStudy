@@ -1,29 +1,20 @@
 package interfaces;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import dataAccessObj.TransactionDAOImplementation;
-import modelClasses.Zipcodes;
+import modelClasses.Customer;
 
 public class Sandbox {
-
 	public static void main(String[] args) {
 
-		// get 
+		Customer cust = new Customer();
+		System.out.println(cust.toString());
 		
 		
-		String s = "DE - 2 Irving";
-		System.out.println(s);
 		
-		int[] arr = new int [10];
-		arr[1] = 5;
+		ArrayList<String> arr = new ArrayList<String>();
+		System.out.println(arr.size());
 		
 		
-		Zipcodes zip = new Zipcodes();
-		
-		
-		System.out.println(zip);
-
 	}
-
 }

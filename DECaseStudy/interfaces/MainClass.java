@@ -7,22 +7,18 @@ public class MainClass {
 
 	public static void main(String[] args) {
 
-//		// get customer example
-//		Runner rn1 = new Runner();
-//		rn1.findCustomer();
+		// get customer example
+		//Runner runOne = new Runner();
+		//runOne.findCustomer();
 
-		// update customer example
-//		CustomerDAOImplementation updateCust = new CustomerDAOImplementation();
-//		Customer cust1 = new Customer();
-//		
-//		cust1.setAptNumber("Blue#");
-//		cust1.setCity("Chicago");
-//		cust1.setSsn(123453023);
-//		updateCust.updateCustomer(cust1);
+		//-----------------------------------
 		
-		Runner rn2 = new Runner();
-		rn2.updateCustomer();
+		// update customer example
+		Runner runTwo = new Runner();
+		runTwo.updateCustomer();
 
+		//-----------------------------------
+		
 		
 		
 		
@@ -61,5 +57,6 @@ public class MainClass {
 		System.out.println(branches.totalsByBranch("TX").toString());
 
 		*/
+		
 	}
 }
