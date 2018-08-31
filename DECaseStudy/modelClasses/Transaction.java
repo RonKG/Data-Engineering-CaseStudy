@@ -104,7 +104,8 @@ public class Transaction {
 	}
 	
 	public void printBillRange() {
-		System.out.printf("%-20s%-20s%-20s%-20s%-20s\n",transactionId,day,month,year,ccNumber,transactiontype,transactionValue);
+		System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
+							transactionId,day,month,year,ccNumber,transactiontype,numFormatter(transactionValue));
 
 	}
 	
@@ -112,5 +113,9 @@ public class Transaction {
 		System.out.printf("\n%-20s%-20s%-20s%-20s%-20s\n","transactionId","day","month"
 				,"year","ccNumber","transactiontype","transactionValue");
 		
+	}
+	
+	public String numFormatter(double d) {
+		return String.format("%.2f", d);
 	}
 }

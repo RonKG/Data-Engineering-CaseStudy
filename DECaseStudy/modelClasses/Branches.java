@@ -34,8 +34,14 @@ public class Branches {
 		this.value = value;
 	}
 
+	public String numFormatter(double d) {
+		return String.format("%.2f", d);
+	}
+
 	@Override
 	public String toString() {
-		return "\nBranches [state=" + state + ", value$=" + value + "]";
+		return "\nBranches \n-------------\n" + 
+				"state  =  " + state + "\n" + 
+				"value$ =  " + numFormatter(value) + "\n";
 	}
 }

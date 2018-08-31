@@ -1,6 +1,6 @@
 package modelClasses;
 
-public class Zipcodes{
+public class Zipcodes {
 	public int id;
 	public String fname;
 	public String lname;
@@ -8,7 +8,7 @@ public class Zipcodes{
 	public String cc;
 	public String zip;
 	public String date;
-	
+
 	/**
 	 * @param id
 	 * @param fname
@@ -28,7 +28,7 @@ public class Zipcodes{
 		this.zip = zip;
 		this.date = date;
 	}
-	
+
 	public Zipcodes() {
 	}
 
@@ -37,16 +37,19 @@ public class Zipcodes{
 		return "Zipcodes [id=" + id + ", fname=" + fname + ", lname=" + lname + ", state=" + state + ", cc=" + cc
 				+ ", zip=" + zip + ", date=" + date + "]";
 	}
-	
+
 	public void printZipRange() {
-		System.out.printf("%-20s%-20s%-20s%-20s%-20s\n",id,fname,lname,state,cc,zip,date);
+		System.out.printf("%-20s%-20s%-20s%-20s%-20s\n", id, fname, lname, state, cc, zip, date);
 
 	}
-	
+
 	public void printZipHeader() {
-		System.out.printf("\n%-20s%-20s%-20s%-20s%-20s\n","transactionId","fname","lname"
-				,"state","ccNumber","zipcode","date");
-		
-	} 
-	
+		System.out.printf("\n%-20s%-20s%-20s%-20s%-20s\n", "transactionId", "firstName", "lastName", "state",
+				"ccNumber", "zipcode", "date");
+	}
+
+	public String numFormatter(double d) {
+		return String.format("%.2f", d);
+
+	}
 }

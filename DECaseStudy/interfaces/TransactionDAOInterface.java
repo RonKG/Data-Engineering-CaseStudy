@@ -12,7 +12,7 @@ public interface TransactionDAOInterface {
 
 	public Branches totalsByBranch(String state);
 
-	public List<Transaction> viewSelectDates(String startDate, String endDate);
+	public List<Transaction> viewSelectDates(String startDate, String endDate, String ssn);
 
 	public void groupByType(String s);
 

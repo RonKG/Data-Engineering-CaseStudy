@@ -132,10 +132,20 @@ public class Customer{
 
 	@Override
 	public String toString() {
-		return "Customer [\n"
-				+ "firstName=" + firstName + "\nmiddleName=" + middleName + "\nlastName=" + lastName + "\nssn="
-				+ ssn + "\nccNumber=" + ccNumber + "\naptNumber=" + aptNumber + "\nstreetName=" + streetName + "\ncity="
-				+ city + "\nstate=" + state + "\ncountry=" + country + "\nzipcode=" + zipcode + "\nphoneNumber="
-				+ phoneNumber + "\nemail=" + email + "\nlastUpdated=" + lastUpdated + "]";
+		return "Customer [\n"+ 
+				"\nfirstName       = " + firstName + 
+				"\nmiddleName      = " + middleName + 
+				"\nlastName        = " + lastName + 
+				"\nssn             = " + ssn + 
+				"\nccNumber        = " + ccNumber + 
+				"\naptNumber       = " + aptNumber + 
+				"\nstreetName      = " + streetName + 
+				"\ncity            = " + city + 
+				"\nstate           = " + state + 
+				"\ncountry         = " + country + 
+				"\nzipcode         = " + zipcode + 
+				"\nphoneNumber     = " + phoneNumber + 
+				"\nemail           = " + email + 
+				"\nlastUpdated     = " + lastUpdated + "\n]";
 	}
 }

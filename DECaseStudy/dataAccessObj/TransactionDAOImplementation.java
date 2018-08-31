@@ -41,19 +41,42 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 			"SELECT COUNT(*),TRANSACTION_TYPE, SUM(TRANSACTION_VALUE)\n" + 
 			"FROM cdw_sapp_creditcard\n" + 
 			"WHERE  TRANSACTION_TYPE = ?";
-	private static final String SELECT_DATES = 
+	/*
+	private static final String SELECT_DATES2 = 
 			"SELECT * FROM cdw_sapp_creditcard \n" + 
 			"WHERE STR_TO_DATE( CONCAT( day, '-', month, '-', year ), '%d-%m-%Y') \n" + 
 			"BETWEEN STR_TO_DATE( ?, '%d-%m-%Y' ) \n" + 
 			"AND STR_TO_DATE( ?, '%d-%m-%Y' )" + 
 			"ORDER BY STR_TO_DATE( CONCAT( day, '-', month, '-', year ), '%d-%m-%Y');";
+			*/
+	private static final String SELECT_DATES = 
+			"SELECT TRANSACTION_ID, \n" + 
+			"CUST_SSN, \n" + 
+			"CREDIT_CARD_NO, \n" + 
+			"BRANCH_CODE,\n" + 
+			"TRANSACTION_TYPE,\n" + 
+			"TRANSACTION_VALUE,\n" +
+			"DAY,\n" + 
+			"MONTH,\n" + 
+			"YEAR,\n"+
+			"CONCAT(YEAR,'-',lpad(MONTH,2,0),'-',lpad(DAY,2,0)) as date\n" + 
+			"FROM cdw_sapp_creditcard\n" + 
+			"WHERE CUST_SSN=? \n" + 
+			"AND ((CONCAT(YEAR,'-',lpad(MONTH,2,0),'-',lpad(DAY,2,0)) BETWEEN ? AND ?))\n" + 
+			"ORDER BY date;";
 	private static final String BRANCH_TRANSACTIONS =
 			"SELECT BRANCH_STATE, SUM(TRANSACTION_VALUE)\n" + 
 			"FROM cdw_sapp_creditcard cd\n" + 
 			"LEFT JOIN cdw_sapp_branch br\n" + 
 			"ON cd.BRANCH_CODE = br.BRANCH_CODE\n" + 
-			"WHERE BRANCH_STATE = ?;";
-	
+			"WHERE BRANCH_STATE = ?;";	
+	/*
+	private static final String BRANCH_TRANSACTIONS2 = "SELECT COUNT(*), BRANCH_STATE, SUM(TRANSACTION_VALUE)\n" + 
+			"			FROM cdw_sapp_creditcard cd\n" + 
+			"			LEFT JOIN cdw_sapp_branch br\n" + 
+			"			ON cd.BRANCH_CODE = br.BRANCH_CODE\n" + 
+			"			WHERE BRANCH_STATE = 'FL';";
+	*/
 
 	public Connection getConnection() {
 		try {
@@ -119,13 +142,11 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;		
-		//s = "Education"; // Use scanner to grab this string; Provide choices		
 		try {			
 			conn = getConnection();
 			stmt = conn.prepareStatement(GROUP_TRANSACTIONS);
 			stmt.setString(1, billType);	
 			rs  = stmt.executeQuery(); 
-			// append this to LinkList
             while (rs.next()) {
             	//append result and display            	
             	System.out.println("Transaction Type   : " + rs.getString(2) + 
@@ -176,8 +197,8 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
             stmt = conn.prepareStatement(MONTHLY_BILL);
             Transaction transaction = null;            
             stmt.setInt(1, month);
-            stmt.setInt(2, 2018); // change this to dateformat
-            stmt.setInt(3, 123453023); // maybe change this to CC number            
+            stmt.setInt(2, year); // change this to dateformat
+            stmt.setInt(3, ssn); // maybe change this to CC number            
             List<Transaction> transactions = new LinkedList<Transaction>();   
             ResultSet rs = stmt.executeQuery();                   
             while (rs.next()) {            	
@@ -199,7 +220,7 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
         } 
 	}
 	
-	public List<Transaction> viewSelectDates(String startDate, String endDate) {
+	public List<Transaction> viewSelectDates(String startDate, String endDate, String ssn) {
 
 		/*
 		 * To display the transactions made by a customer between two dates. Order by
@@ -213,10 +234,11 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 		try {
 			conn = getConnection();
             stmt = conn.prepareStatement(SELECT_DATES);            
-            transaction = null;
+            //transaction = null;
             
-            stmt.setString(1, startDate);
-            stmt.setString(2, endDate);
+            stmt.setInt(1, Integer.parseInt(ssn));
+            stmt.setString(2, startDate);
+            stmt.setString(3, endDate);
              
             List<Transaction> transactions = new LinkedList<Transaction>();            
  
@@ -226,18 +248,18 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
             	
             	transaction = new Transaction();
             	transaction.setTransactionId(rs.getInt(1));
-            	transaction.setDay((int) rs.getFloat(2));
-            	transaction.setMonth(rs.getInt(3));
-            	transaction.setYear(rs.getInt(4));
-            	transaction.setCcNumber(rs.getString(5));
-            	transaction.setTransactiontype(rs.getString(8));
-            	transaction.setTransactionValue(rs.getFloat(9));
-            	
+            	transaction.setSsn(Integer.parseInt(rs.getString(2)));
+            	transaction.setCcNumber(rs.getString(3));
+            	transaction.setBranchCode(Integer.parseInt(rs.getString(4)));
+            	transaction.setTransactiontype(rs.getString(5));
+            	transaction.setTransactionValue(rs.getFloat(6));
+            	transaction.setDay((int) rs.getFloat(7));
+            	transaction.setMonth(rs.getInt(8));
+            	transaction.setYear(rs.getInt(9));            	
             	transactions.add(transaction);
             }
 
-            //System.out.println("debug: " + transactions.size());
-                        
+                      
             rs.close();
             stmt.close();
             return transactions;

@@ -6,57 +6,51 @@ package interfaces;
 public class MainClass {
 
 	public static void main(String[] args) {
-
-		// get customer example
+		
+//-------------------------------------------
+		
+		// 1. find a customer in the database
 		//Runner runOne = new Runner();
 		//runOne.findCustomer();
 
-		//-----------------------------------
+//-------------------------------------------
 		
-		// update customer example
-		Runner runTwo = new Runner();
-		runTwo.updateCustomer();
+		// 2. update a customer in the database
+		//Runner runTwo = new Runner();
+		//runTwo.updateCustomer();
 
-		//-----------------------------------
+//------------------------------------------
 		
+		// 3. fetch customer group
+		//Runner runThree = new Runner();
+		//runThree.fetchCategoryTotals();
 		
+//------------------------------------------		
 		
+		// 4. fetch monthly bill
+		//Runner runFour = new Runner();
+		//runFour.fetchMonthlyBill();				
 		
-		/*
-		// group by type
-		TransactionDAOImplementation groupCust = new TransactionDAOImplementation();
-		groupCust.groupByType("Education");
+//------------------------------------------	
+		
+		// 5. view select dates
+		//Runner runFive = new Runner();
+		//runFive.viewTransactionsInDateRange();
+		
+//------------------------------------------		
+	
+		// 6. view transactions in a zipcode
+		//Runner runSix = new Runner();
+		//runSix.viewTransactionsInAZipcode();
+		
+//------------------------------------------
+		
+		// 7. view count & total for Branches by State
+		Runner runSeven = new Runner();
+		runSeven.viewCountbyTotalbyBranchesbyState();
 
-		// monthly bill
-		TransactionDAOImplementation monthBill = new TransactionDAOImplementation();
-		List<Transaction> transactions = monthBill.getMonthlyBill(2, 3, 123456100);
-		transactions.get(1).printBillHeader();
-		for (int i = 0; i < transactions.size(); i++) {
-			transactions.get(i).printBillRange();
-		}
+//------------------------------------------
 
-		// view select dates
-		TransactionDAOImplementation betweenDates = new TransactionDAOImplementation();
-		List<Transaction> btwnDates = betweenDates.viewSelectDates("1-1-2018", "1-1-2018");
-		btwnDates.get(1).printBillHeader();
-		for (int i = 0; i < btwnDates.size(); i++) {
-			// btwnDates.get(i).printBillRange();
-		}
-
-		// view transactions in zipcode
-		TransactionDAOImplementation zips = new TransactionDAOImplementation();
-		List<modelClasses.Zipcodes> zipcodes = zips.byZipandDate(39120, 2, 2018);
-		Zipcodes zipcode = new Zipcodes();
-		zipcode.printZipHeader();
-		for (int i = 0; i < zipcodes.size(); i++) {
-			zipcodes.get(i).printZipRange();
-		}
-
-		// number and total values of transactions for branches in a given state
-		TransactionDAOImplementation branches = new TransactionDAOImplementation();
-		System.out.println(branches.totalsByBranch("TX").toString());
-
-		*/
 		
 	}
 }
