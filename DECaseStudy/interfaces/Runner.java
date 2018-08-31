@@ -138,31 +138,31 @@ public class Runner {
 			switch (input) {
 			case "1":
 				String bills = "Bills";
-				groupCust.groupByType(bills);
+				groupCust.groupByTransactionType(bills);
 				break;
 			case "2":
 				String education = "Education";
-				groupCust.groupByType(education);
+				groupCust.groupByTransactionType(education);
 				break;
 			case "3":
 				String entertainment = "Entertainment";
-				groupCust.groupByType(entertainment);
+				groupCust.groupByTransactionType(entertainment);
 				break;
 			case "4":
 				String gas = "Gas";
-				groupCust.groupByType(gas);
+				groupCust.groupByTransactionType(gas);
 				break;
 			case "5":
 				String grocery = "Grocery";
-				groupCust.groupByType(grocery);
+				groupCust.groupByTransactionType(grocery);
 				break;
 			case "6":
 				String healthcare = "Healthcare";
-				groupCust.groupByType(healthcare);
+				groupCust.groupByTransactionType(healthcare);
 				break;
 			case "7":
 				String test = "Test";
-				groupCust.groupByType(test);
+				groupCust.groupByTransactionType(test);
 				break;
 			case "Q":
 			case "q":

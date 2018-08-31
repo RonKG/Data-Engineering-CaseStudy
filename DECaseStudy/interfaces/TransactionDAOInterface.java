@@ -14,7 +14,7 @@ public interface TransactionDAOInterface {
 
 	public List<Transaction> viewSelectDates(String startDate, String endDate, String ssn);
 
-	public void groupByType(String s);
+	public void groupByTransactionType(String s);
 
 	public List<Transaction> getMonthlyBill(int month, int year, int ssn);
 

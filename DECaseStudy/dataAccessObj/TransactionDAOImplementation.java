@@ -14,10 +14,9 @@ import modelClasses.Transaction;
 import modelClasses.Zipcodes;
 
 public class TransactionDAOImplementation implements TransactionDAOInterface{
-
-	
 	
 	Connection connection = null;
+	
 	private static final String JDBC_DRIVER = 
 			"com.mysql.jdbc.Driver";
 	private static final String DB_URL = 
@@ -134,7 +133,7 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
         }	
 	}
 	
-	public void groupByType(String billType)
+	public void groupByTransactionType(String billType)
 	{
 		/*
 		 To display the number and total values of transactions for a given type.
@@ -258,8 +257,7 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
             	transaction.setYear(rs.getInt(9));            	
             	transactions.add(transaction);
             }
-
-                      
+                 
             rs.close();
             stmt.close();
             return transactions;
