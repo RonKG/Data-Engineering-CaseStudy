@@ -34,7 +34,7 @@ public class CustomerDAOImplementation implements CustomerDAOInterface {
 			+ "CUST_PHONE=?, "
 			+ "CUST_EMAIL=? "	
 			+ "LAST_UPDATED" 
-			+"WHERE SSN=?";
+			+ "WHERE SSN=?";
 	
 	Connection connection = null;
 	

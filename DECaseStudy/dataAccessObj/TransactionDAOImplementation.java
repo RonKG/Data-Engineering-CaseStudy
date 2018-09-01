@@ -63,12 +63,19 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 			"WHERE CUST_SSN=? \n" + 
 			"AND ((CONCAT(YEAR,'-',lpad(MONTH,2,0),'-',lpad(DAY,2,0)) BETWEEN ? AND ?))\n" + 
 			"ORDER BY date;";
-	private static final String BRANCH_TRANSACTIONS =
+	/*
 			"SELECT BRANCH_STATE, SUM(TRANSACTION_VALUE)\n" + 
 			"FROM cdw_sapp_creditcard cd\n" + 
 			"LEFT JOIN cdw_sapp_branch br\n" + 
 			"ON cd.BRANCH_CODE = br.BRANCH_CODE\n" + 
 			"WHERE BRANCH_STATE = ?;";	
+			*/
+	private static final String BRANCH_TRANSACTIONS2 =
+			"SELECT BRANCH_STATE, SUM(TRANSACTION_VALUE), COUNT(*) AS COUNT\n" + 
+			"FROM cdw_sapp_creditcard cd\n" + 
+			"LEFT JOIN cdw_sapp_branch br\n" + 
+			"ON cd.BRANCH_CODE = br.BRANCH_CODE\n" + 
+			"WHERE BRANCH_STATE = ?;";
 	/*
 	private static final String BRANCH_TRANSACTIONS2 = "SELECT COUNT(*), BRANCH_STATE, SUM(TRANSACTION_VALUE)\n" + 
 			"			FROM cdw_sapp_creditcard cd\n" + 
@@ -167,7 +174,7 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
 		PreparedStatement stmt = null;		
 		try {
 			conn = getConnection();
-            stmt = conn.prepareStatement(BRANCH_TRANSACTIONS);
+            stmt = conn.prepareStatement(BRANCH_TRANSACTIONS2);
             Branches branch = null;            
             stmt.setString(1, state);
             ResultSet rs = stmt.executeQuery();                   
@@ -175,6 +182,7 @@ public class TransactionDAOImplementation implements TransactionDAOInterface{
             	branch = new Branches();
             	branch.state = rs.getString(1);
             	branch.value = rs.getFloat(2);
+            	branch.count = rs.getInt(3);
             }
             rs.close();
             stmt.close();

@@ -288,7 +288,7 @@ public class Runner {
 			System.out.println("\n             ___ Enter State Abbreviation (**)___");
 			state = sc.nextLine();
 			System.out.println("\n");
-			System.out.println("to view Transactions for Branches in in Zipcode by State__\n");
+			System.out.println("to view Transactions for Branches in Zipcode by State__\n");
 			System.out.println("                      \"Q\" to quit!");
 			System.out.println("You entered " + state.toUpperCase() + " ");
 			System.out.println(branches.totalsByBranch(state.toUpperCase()));

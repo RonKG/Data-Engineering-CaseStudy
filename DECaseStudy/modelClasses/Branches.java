@@ -3,6 +3,7 @@ package modelClasses;
 public class Branches {
 	public String state;
 	public float value;
+	public int count;
 
 	/**
 	 * @param state
@@ -12,6 +13,14 @@ public class Branches {
 		super();
 		this.state = state;
 		this.value = value;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	public Branches() {
@@ -40,8 +49,13 @@ public class Branches {
 
 	@Override
 	public String toString() {
-		return "\nBranches \n-------------\n" + 
-				"state  =  " + state + "\n" + 
-				"value$ =  " + numFormatter(value) + "\n";
+		return "\n"	+ 
+				"      -------------------\n"	+ 
+				"      Branches \n"	 + 
+				"      --------------------\n" + 
+				"      state  =  " + state + "\n" + 
+				"      value$ =  " + numFormatter(value) + "\n" +
+				"      count  =  " + count + "\n"	+ 
+				"      -------------------\n";
 	}
 }

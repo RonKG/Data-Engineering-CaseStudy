@@ -10,7 +10,7 @@ public class MainClass {
 		// -------------------------------------------
 
 		// 1. find a customer in the database
-		// Runner runOne = new Runner();
+		//Runner runOne = new Runner();
 		// runOne.findCustomer();
 
 		// -------------------------------------------
@@ -40,8 +40,8 @@ public class MainClass {
 		// ------------------------------------------
 
 		// 6. view transactions in a zipcode
-		// Runner runSix = new Runner();
-		// runSix.viewTransactionsInAZipcode();
+		 //Runner runSix = new Runner();
+		 //runSix.viewTransactionsInAZipcode();
 
 		// ------------------------------------------
 
