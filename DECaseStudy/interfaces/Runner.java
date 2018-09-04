@@ -222,7 +222,7 @@ public class Runner {
 			System.out.println("Enter __CUSTOMER SSN #__");
 			String ssn = sc.next();
 			System.out.println("----------------------------------");
-			System.out.println("| Required DATE format: YYY-MM-DD |");
+			System.out.println("| Required DATE format: YYYY-MM-DD |");
 			System.out.println("----------------------------------");
 			System.out.println("Enter______First Date String____");
 			String first = sc.next();
